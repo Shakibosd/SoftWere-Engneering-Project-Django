@@ -1,0 +1,106 @@
+/* 
+
+@media only screen and (min-width:400px) and (max-width:767px){
+    body{
+        background-color: red;
+    }
+    .services{
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+    }
+}
+
+@media only screen and (min-width:768px) and (max-width:992px){
+    body{
+        background-color: blue;
+    }
+}
+ */
+
+
+
+ /* For tablet devices */
+@media only screen and (min-width: 768px) and (max-width: 992px) {
+    /* body {
+      background-color: blue;
+    } */
+    .banner_container {
+      flex-direction: column;
+      align-items: center;
+    }
+    [class*="col-"]{
+        float: left;
+        padding: 5px;
+    }
+    
+    /* for mobile  */
+    [class*="col-"]{
+        width: 50%;
+    }
+    
+    .banner_left,
+    .banner_right {
+      width: 80%;
+    }
+    .service_container {
+      padding: 10px;
+    }
+    .service_card {
+      width: 80%;
+      margin-bottom: 10px;
+    }
+    .contact_us {
+      width: 70%;
+    }
+  }
+  
+  /* For mobile devices */
+  @media only screen and (max-width: 767px) {
+    /* body {
+      background-color: red;
+    } */
+    [class*="col-"]{
+        float: left;
+        padding: 5px;
+    }
+    
+    /* for mobile  */
+    [class*="col-"]{
+        width: 50%;
+    }
+    
+    .banner_container {
+      flex-direction: column;
+      align-items: center;
+    }
+    .banner_img {
+      width: 100%;
+    }
+    .banner_left,
+    .banner_right {
+      width: 100%;
+      text-align: center;
+    }
+    .service_container {
+      padding: 50px;
+    }
+    .services {
+      flex-direction: column;
+      align-items: center;
+    }
+    .service_card {
+      width: 100%;
+      margin-bottom: 50px;
+    }
+    .contact_us {
+      width: 100%;
+      padding: 50px;
+    }
+    .input_box,
+    .message,
+    .submit_btn {
+      width: 100%;
+    }
+  }
+  

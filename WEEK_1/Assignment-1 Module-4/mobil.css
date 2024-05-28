@@ -1,0 +1,162 @@
+/* Default styles */
+
+/* Navbar */
+.nav_wh {
+  width: 60px;
+  height: 60px;
+  border-radius: 50px;
+}
+
+.mob_social_res {
+  text-align: center;
+}
+
+li {
+  list-style: none;
+}
+
+li:hover {
+  background-color: gray;
+  padding: 2px 2px;
+  border-radius: 5px;
+}
+
+/* Card */
+.card-body {
+  width: 1000px;
+  height: 445.8px;
+}
+
+.card_img {
+  width: 600px;
+  height: 300px;
+  padding: 0px 10px;
+}
+
+/* Buttons */
+.skills_and_edu_btn {
+  background-color: #6c757d;
+  color: white;
+  border: none;
+  border-radius: 5px;
+}
+
+/* Contact Form */
+.inpt {
+  border: 1px solid #6c757d;
+  background-color: #1a1a1a;
+  color: #ffffff;
+  padding: 10px 20px;
+}
+
+#color_hr_in_contact {
+  color: white;
+  border: 2px solid white;
+}
+
+.inpt_btn {
+  padding: 10px 90px;
+  border-radius: 5px;
+  background-color: #6c757d;
+  color: #00ffff;
+}
+
+.pad_left {
+  padding-left: 25px;
+  color: #ffffff;
+}
+
+/* Media queries start */
+@media only screen and (max-width: 991px) {
+
+  /* Navbar */
+  .nav_item {
+    background-color: #5a6268;
+    color: white;
+    border-radius: 20px;
+  }
+
+  li:hover {
+    background-color: cadetblue;
+  }
+
+  nav {
+    text-align: center;
+  }
+}
+
+@media only screen and (max-width: 767px) {
+
+  /* Navbar */
+  .container-fluid {
+    display: flex;
+    justify-content: space-between;
+  }
+
+  .d-flex {
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  /* Card */
+  .card-body {
+    width: 100%;
+    height: auto;
+  }
+
+  .card_body {
+    width: 300px;
+    height: 300px;
+  }
+
+  .view_cen {
+    text-align: center;
+  }
+
+  .card_img {
+    width: 100%;
+    height: auto;
+    padding: 0;
+  }
+
+  /* Buttons */
+  .skills_and_edu_btn {
+    width: 100%;
+  }
+
+  /* Contact Form */
+  .container {
+    max-width: 100%;
+  }
+
+  .form-group {
+    margin-bottom: 20px;
+  }
+
+  .form-control {
+    width: 100%;
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid #6c757d;
+    background-color: #1a1a1a;
+    color: #ffffff;
+  }
+
+  .form-control:focus {
+    border-color: #00ffff;
+    box-shadow: 0 0 0 0.2rem rgba(108, 117, 125, 0.25);
+  }
+
+  .btn-primary {
+    padding: 10px;
+    border-radius: 5px;
+    background-color: #6c757d;
+    color: #00ffff;
+    width: 100%;
+    border: none;
+  }
+
+  .btn-primary:hover {
+    background-color: #5a6268;
+  }
+}
