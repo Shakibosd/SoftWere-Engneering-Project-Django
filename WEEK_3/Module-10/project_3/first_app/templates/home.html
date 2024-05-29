@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>document</title>
+</head>
+
+<body>
+    <h1>This is home page</h1>
+    <h2>Author : {{author}}</h2>
+    <h2>Age : {{age}}</h2>
+    <h2>List : {{lst}}</h2>
+
+    <!-- condisioal statement  -->
+
+    {% if age >= 20 %}
+        <h4>you will get driving license</h4>
+    {% elif age >= 10 and age <= 19 %} 
+        <h4>you will not get driving license</h4>
+    {% else %}
+        <h4>you're a child</h4>
+    {% endif %}
+</body>
+
+</html>
