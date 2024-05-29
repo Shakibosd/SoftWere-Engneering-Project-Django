@@ -1,10 +1,12 @@
 <!DOCTYPE html>
-<html>
-
+<html lang="en">
 <head>
-    <title>document</title>
+   <meta charset="UTF-8">
+   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   <!-- <link rel="shortcut icon" href="images/shakib.jpg" type="image/x-icon"> -->
+   <!-- <link rel="stylesheet" href="style.css"> -->
+   <title>project3 django</title>
 </head>
-
 <body>
     <h1>This is home page</h1>
     <h2>Author : {{author}}</h2>
@@ -12,7 +14,6 @@
     <h2>List : {{lst}}</h2>
 
     <!-- condisioal statement  -->
-
     {% if age >= 20 %}
         <h4>you will get driving license</h4>
     {% elif age >= 10 and age <= 19 %} 
@@ -21,5 +22,5 @@
         <h4>you're a child</h4>
     {% endif %}
 </body>
-
 </html>
+
