@@ -1,12 +1,14 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-   <meta charset="UTF-8">
-   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-   <!-- <link rel="shortcut icon" href="images/shakib.jpg" type="image/x-icon"> -->
-   <!-- <link rel="stylesheet" href="style.css"> -->
-   <title>project3 django</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- <link rel="shortcut icon" href="images/shakib.jpg" type="image/x-icon"> -->
+    <!-- <link rel="stylesheet" href="style.css"> -->
+    <title>project3 django</title>
 </head>
+
 <body>
     <h1>This is home page</h1>
     <h2>Author : {{author}}</h2>
@@ -16,11 +18,23 @@
     <!-- condisioal statement  -->
     {% if age >= 20 %}
         <h4>you will get driving license</h4>
-    {% elif age >= 10 and age <= 19 %} 
+    {% elif age >= 10 and age <= 19 %}
         <h4>you will not get driving license</h4>
     {% else %}
         <h4>you're a child</h4>
     {% endif %}
-</body>
-</html>
 
+    <!-- built in function in django -->
+    {{lst}} <h1>{{ lst | join:" - " }}</h1>
+    <h1>{{ birthday | date:"D d M Y" }}</h1>
+    <h1>{{ val | length }}</h1>
+    <h1>{{"Python is Fun" | cut:" "}}</h1>
+    <h1>{{'Happy coding.. python is very powerful language' | truncatechars:40}}</h1>
+
+    <!-- for loop -->
+    {% for i in courses %}
+    <h3>{{i.id}} -> {{i.name}} -> {{i.fee}}</h3>
+    {% endfor %}
+</body>
+
+</html>
