@@ -2,7 +2,7 @@
 from django.shortcuts import render
 import datetime
 
-# Create your views here.
+# Create your views here.   
 def home(request):
     d = {'author' : 'rohim', 'age' : 15, 'lst' : ['python','is','best'], 'birthday' : datetime.datetime.now(), 'val' : '', 'courses' : [
 

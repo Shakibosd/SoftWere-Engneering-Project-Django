@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+   <meta charset="UTF-8">
+   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   <link rel="shortcut icon" href="templates/images/shakib.jpg" type="image/x-icon">
+   <!-- <link rel="stylesheet" href="style.css"> -->
+   <title>First Practice Day</title>
+</head>
+<body>
+   <h1 style="color: red;">Context Area:-</h1>
+
+   <h2>Author : {{author}}</h2>
+   <h2>Author : {{age}}</h2>
+   <h2>Author : {{lst}}</h2>
+
+   <!-- conditional statement -->
+   <h1 style="color: blue;">conditional statement:-</h1>
+   {% if age >= 20 %}
+      <h3>this is romjan</h3>
+   {% elif age >= 12 and age <= 18 %}
+      <h3>this is naim</h3>
+   {% else %}
+      <h3>this is mahbub</h3>
+   {% endif %}
+
+   <!-- for loop  -->
+   <h1 style="color: magenta;">For Loop Statement:-</h1>
+   {% for x in cources %}
+   <h3>{{x.id}}, {{x.name}}, {{x.fee}}</h3>
+   {% endfor %}
+
+   <!-- built in function in django -->
+   <h1 style="color: darkcyan;">Built In Function Django Statement:-</h1>
+   <h2>{{birthday}}</h2>
+</body>
+</html>
+
