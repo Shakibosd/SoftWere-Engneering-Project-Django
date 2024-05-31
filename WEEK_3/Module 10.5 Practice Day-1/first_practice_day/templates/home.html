@@ -13,26 +13,55 @@
    <h2>Author : {{author}}</h2>
    <h2>Author : {{age}}</h2>
    <h2>Author : {{lst}}</h2>
+   <h2>Roll : {{roll}}</h2>
+   <h2>Title : {{title}}</h2>
 
    <!-- conditional statement -->
    <h1 style="color: blue;">conditional statement:-</h1>
    {% if age >= 20 %}
-      <h3>this is romjan</h3>
+      <h3>This Is Romjan</h3>
    {% elif age >= 12 and age <= 18 %}
-      <h3>this is naim</h3>
+      <h3>This Is Naim</h3>
    {% else %}
-      <h3>this is mahbub</h3>
+      <h3>This Is Mahbub</h3>
+   {% endif %}
+
+   <!-- part 2 -->
+   {% if age >= 10 %}
+      <h3>This Is Romjan</h3>
+   {% elif age >= 5 and age <= 21 %}
+      <h3>This Is Naim</h3>
+   {% else %}
+      <h3>This Is Mahbub</h3>
    {% endif %}
 
    <!-- for loop  -->
    <h1 style="color: magenta;">For Loop Statement:-</h1>
    {% for x in cources %}
-   <h3>{{x.id}}, {{x.name}}, {{x.fee}}</h3>
+   <h3>{{x.id}}, {{x.name}}, {{x.fee}}, {{x.reg}}</h3>
    {% endfor %}
 
    <!-- built in function in django -->
    <h1 style="color: darkcyan;">Built In Function Django Statement:-</h1>
    <h2>{{birthday}}</h2>
+   {{lst}}<h2>{{ lst | join:" - " }}</h2>
+   <h2>{{ val | length }}</h2>
+   <h2>{{ lst | lower }}</h2>
+   <h2>{{ lst | upper }}</h2>
+   <h2>{{ lst | random }}</h2>
+   <h2>{{ lists | random }}</h2>
+   <h2>{{ lst | slice:":3" }}</h2>  
+   <h2>{{ lst | truncatechars:25 }}</h2>  
+   <h2>{{ val | wordcount }}</h2>  
+   <h2>{{ val | striptags }}</h2>  
+   <h2>{{ val | make_list }}</h2>  
+   <h2>{{ val | addslashes }}</h2>
+   <h2>{{ val | capfirst }}</h2>
+   <h2>"{{ val | center:"15" }}"</h2>
+   <h2>{{ val | cut:" " }}</h2>
+   <h2>{{ title | escape }}</h2>
+   <h2>{{ val | filesizeformat }}</h2>
+   <h2>{{ val | slugify }}</h2>
 </body>
 </html>
 
