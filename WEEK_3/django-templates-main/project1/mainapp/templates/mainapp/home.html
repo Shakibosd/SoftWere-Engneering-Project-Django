@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}Home Page{% endblock title %}
+{% block css %}
+<link rel="stylesheet" href="{% static 'css/home.css' %}">
+{% endblock css %}
+
+<!-- hero section start -->
+{% block hero_Section %}
+<section class="container mx-auto mt-4">
+    <h1 class="text-center">This Is Hero Section</h1>
+</section>
+{% endblock hero_Section %}
+<!-- hero section end -->
+
+<!-- main section start -->
+{% block Main_Section %}
+<section class="container mx-auto mt-4 p-4">
+    <h1 class="text-center">This Is Main Section</h1>
+</section>
+{% endblock Main_Section %}
+<!-- main section end -->
+
+
+{% block js %}
+<script src="{% static 'js/home.js' %}"></script>
+{% endblock js %}
