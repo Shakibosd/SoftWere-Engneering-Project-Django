@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+{% load static %}
+{% block title %}Musician Page{% endblock title %}
+
+{% block content %}
+<h1 class="text-info text-center">This Is Musician Form</h1>
+<br>
+<form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">Save</button>
+</form>
+<br>
+<a href="{% url 'album' %}">Back to Album List</a>
+{% endblock %}
+

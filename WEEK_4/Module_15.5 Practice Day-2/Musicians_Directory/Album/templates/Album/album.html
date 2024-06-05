@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+{% load static %}
+{% block title %}Album Page{% endblock title %}
+
+{% block content %}
+<h1 class="text-center text-warning">This Is Album Form</h1>
+<br>
+<form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    {% if flag %}
+    <button class="btn btn-info" type="submit">Edit</button>
+    {% else %}
+    <button type="submit">Save</button>
+    {% endif %}
+</form>
+<a href="{% url 'musician' %}">Back to Musicians List</a>
+{% endblock %}
+
