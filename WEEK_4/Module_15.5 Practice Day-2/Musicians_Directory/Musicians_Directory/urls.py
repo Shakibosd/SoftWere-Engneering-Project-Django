@@ -3,9 +3,9 @@ from . import views
 
 urlpatterns = [
     path('', views.home, name='home'),
-    path('album/', include("Album.urls")),
-    path('musician/', include("musician.urls")),
+    path('', include('musician.urls')),  
+    path('album/', include('Album.urls')),
+    path('musician/', include('musician.urls')),
 ]
 
 
-    
