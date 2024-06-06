@@ -3,21 +3,17 @@
 {% load static %}   
 
 {% block title %}Albums{% endblock title %}
-
+<link rel="shortcut icon" href="{% static 'img_icon.png' %}" type="image/x-icon">
 {% block content %}
-<h1 class="mt-4">Albums</h1>
-<a href="{% url 'album_create' %}" class="btn btn-primary mb-3">Add Album</a>
+<h1 class="mt-4 text-center text-primary">This Is Album Page</h1>
+<a href="{% url 'album_create' %}" class="btn btn-info mb-3">Add Album</a>
 <table class="table table-striped">
     <thead>
         <tr>
-            <th>ID</th>
-            <th>Musician Name</th>
-            <th>Email</th>
-            <th>Album Rating</th>
-            <th>Instrument Type</th>
-            <th>Album Name</th>
+            <th>Name</th>
+            <th>Musician</th>      
             <th>Release Date</th>
-            <th>Actions</th>
+            <th>Rating</th>
         </tr>
     </thead>
     <tbody>

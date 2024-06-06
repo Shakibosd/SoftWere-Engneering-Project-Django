@@ -3,18 +3,18 @@
 {% load static %}
 
 {% block title %}Musicians{% endblock title %}
-
+<link rel="shortcut icon" href="{% static 'img_icon.png' %}" type="image/x-icon">
 {% block content %}
-<h1 class="mt-4">Musicians</h1>
-<a href="{% url 'musician_create' %}" class="btn btn-primary mb-3">Add Musician</a>
+<h1 class="mt-4 text-center text-primary">This Is Musicians Page</h1>
+<a href="{% url 'musician_create' %}" class="btn btn-info mb-3">Add Musician</a>
 <table class="table table-striped">
     <thead>
         <tr>
-            <th>ID</th>
-            <th>Musician Name</th>
+            <th>First Name</th>
+            <th>Last Name</th>
             <th>Email</th>
+            <th>Phone Number</th>
             <th>Instrument Type</th>
-            <th>Actions</th>
         </tr>
     </thead>
     <tbody>

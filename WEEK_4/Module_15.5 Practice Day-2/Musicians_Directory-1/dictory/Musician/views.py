@@ -16,8 +16,8 @@ def musician_create(request):
         form = MusicianForm()
     return render(request, 'musician_form.html',  {'form': form, 'flag' : False})
 
-def musician_edit(request, pk):
-    musician = Musician.objects.get(pk=pk)
+def musician_edit(request, id):
+    musician = Musician.objects.get(pk=id)
     musician_form = MusicianForm(instance=musician)
     if request.method == 'POST':
         form = MusicianForm(request.POST, instance=musician)
@@ -27,7 +27,7 @@ def musician_edit(request, pk):
 
     return render(request, 'musician_form.html', {'form': musician_form, 'flag' : False})
 
-def musician_delete(request, pk):
-    musician = Musician.objects.get(pk=pk)
+def musician_delete(request, id):
+    musician = Musician.objects.get(pk=id)
     musician.delete()
     return redirect('musician_list')
