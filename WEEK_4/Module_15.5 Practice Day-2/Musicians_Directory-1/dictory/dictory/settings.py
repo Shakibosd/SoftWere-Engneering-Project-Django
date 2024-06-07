@@ -41,7 +41,6 @@ INSTALLED_APPS = [
     'Musician',
     'crispy_forms',
     'crispy_bootstrap5',
-    "phonenumber_field",
 ]
 
 CRISPY_ALLOWED_TEMPLATE_PACKS = 'bootstrap5'
