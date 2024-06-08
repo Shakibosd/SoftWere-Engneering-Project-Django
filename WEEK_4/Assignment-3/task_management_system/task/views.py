@@ -11,7 +11,7 @@ def add_task(request):
             return redirect("show_tasks")
     else:
         form = TaskForm()
-    return render(request, "task/add_task.html", {'form' : form})        
+    return render(request, "./task/add_task.html", {'form' : form})        
 
 def edit_task(request, id):
     task = TaskModel.objects.get(id=id)
@@ -21,9 +21,8 @@ def edit_task(request, id):
         if task_form.is_valid():
             task_form.save()
             return redirect('show_tasks')
-    else:
-        task_form = TaskForm(instance=task)
-    return render(request, 'task/edit_task.html', {'form': task_form})    
+
+    return render(request, './task/edit_task.html', {'form': task_form})    
 
 
 def delete_task(request, id):
@@ -33,4 +32,4 @@ def delete_task(request, id):
 
 def show_tasks(request):
     tasks = TaskModel.objects.all()
-    return render(request,'task/show_tasks.html', {'tasks' : tasks})
+    return render(request,'./task/show_tasks.html', {'tasks' : tasks})
