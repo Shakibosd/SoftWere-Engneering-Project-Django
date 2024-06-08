@@ -7,3 +7,4 @@ urlpatterns = [
     path('delete/<int:id>/', views.delete_task, name='delete_task'),
     path('', views.show_tasks, name='show_tasks'),
 ]
+    
