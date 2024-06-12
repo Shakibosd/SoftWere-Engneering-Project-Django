@@ -59,9 +59,9 @@ def user_logout(request):
     return redirect('login')
 
 def pass_change(request):
-    if   request.user.is_authenticated:
+    if request.user.is_authenticated:
         if request.method == 'POST':
-            form = PasswordChangeForm(user=request.user, data = request.POST)
+            form = PasswordChangeForm(user=request.user, data=request.POST)
             if form.is_valid():
                 form.save()     
                 update_session_auth_hash(request, form.user)#password update korbe

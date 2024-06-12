@@ -6,22 +6,22 @@
 {% load crispy_forms_tags %}
 
 {% block content %}
-<h1 class="text-center text-secondary">This Is Login Page</h1>
-<br>
-<form method="post" style="width: 50%; margin: auto;" novalidate>
-  {% csrf_token %}
-  {% if form.non_field_errors %}
-  {% for er in form.non_field_errors %}
-  <p class="bg-danger text-white p-2" style="border-radius: 10px;">{{er}}</p>
-  {% endfor %}
-  {% endif %}
-  <!-- {{form|crispy}} -->
-  {% for fm in form %}
-  {{ fm.label_tag }}
-  {{ fm }}
-  {{fm.errors|striptags}}
-  {% endfor %}
-  <br />
-  <button type="submit" class="btn btn-warning">Login</button>
-</form>
+    <h1 class="text-center text-secondary">This Is Login Page</h1>
+    <br>
+    <form method="post" style="width: 50%; margin: auto;" novalidate>
+        {% csrf_token %}
+        {% if form.non_field_errors %}
+        {% for er in form.non_field_errors %}
+          <p class="bg-danger text-white p-2" style="border-radius: 10px;">{{er}}</p>
+        {% endfor %}
+        {% endif %}
+        <!-- {{form|crispy}} -->
+        {% for fm in form %}
+          {{ fm.label_tag }}
+          {{ fm }}
+          {{fm.errors|striptags}}
+        {% endfor %}
+        <br />
+        <button type="submit" class="btn btn-warning">Login</button>
+    </form>
 {% endblock content %}
