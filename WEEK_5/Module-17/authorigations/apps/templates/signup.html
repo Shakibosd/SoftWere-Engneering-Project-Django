@@ -14,9 +14,9 @@
         {% csrf_token %}
         <!-- {{form|crispy}} -->
         {% for fm in form %}
-        {{ fm.label_tag }}
-        {{ fm }}
-        {{fm.errors|striptags}}
+            {{ fm.label_tag }}
+            {{ fm }}
+            {{fm.errors|striptags}}
         {% endfor %}
         <br />
         <button type="submit" class="btn btn-primary">Submit</button>
