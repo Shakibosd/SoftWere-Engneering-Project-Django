@@ -1,0 +1,62 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block content %}
+<title>{% block title %} Home Page {% endblock title %}</title>
+
+<div class="flex-wrap px-5 pt-3 align-items-center">
+    <div class="row">
+        <div class="col-6">
+            <h1 class="text-info text-center">This Is Home Page | My Blog Site</h1>
+            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Obcaecati aspernatur aliquid explicabo vero
+                incidunt
+                voluptatum, assumenda nisi neque quas optio? Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                Laudantium nemo dolorem distinctio sed officiis? Ab deserunt excepturi repudiandae nesciunt, ducimus
+                impedit, distinctio placeat magni quo repellat eius quae soluta aperiam. Lorem ipsum dolor sit amet,
+                consectetur adipisicing elit. Incidunt provident voluptates at velit hic eaque fuga omnis! Deleniti,
+                nulla
+                et rerum itaque a quaerat eaque fugiat hic harum laboriosam debitis?</p>
+        </div>
+        <div class="col-6">
+            <img style="width: 400px; height: 400px;" src="{% static 'block5.jpg' %}" alt="pic">
+        </div>
+    </div>
+</div>
+
+<div class="d-flex flex-warp p-4">
+    <div class="col-2 bg-light p-3" style="width: 160px; height:300px;">
+        <h4><b>All Category</b></h4>
+        {% for cat in category %}
+        <div class="form-check">
+            <input class="form-check-input" type="radio" name="category" id="{{cat.id}}">
+            <label class="form-check-label" for="{{cat.id}}">
+                <b> <a href="{% url 'category_wise_post' cat.slug %}" class="text-decoration-none">{{cat.name}}</a></b>
+            </label>
+        </div>
+        {% endfor %}
+    </div>
+    <div class="col-10 p-3">
+        <h3>{{data | length}} Result Founds!!!</h3> 
+        <div class="d-flex flex-wrap pt-5">
+            {% for post in data %}
+            <div class="col-sm-3">
+                <div class="card mx-2">
+                    <div class="card-body">
+                        <img src="{{post.image.url}}" class="card-img-top" alt="...">   
+                        <h5 class="card-title text-info"><a href="{% url 'detail_post' post.id %}" class="text-decoration-none text-dark">{{post.title}}</a></h5>
+                        <p class="card-text text-danger">{{post.content | truncatewords:10}}</p>
+                        <p class="text-warning">Author : {{post.author.first_name}} {{post.author.last_name}}</p>
+                        <p>Category :
+                            {% for cat in post.category.all %}
+                            <button class="btn btn-primary btn-sm m-2" disabled>{{cat.name}}</button>
+                            {% endfor %}
+                        </p>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+{% endblock content %}
