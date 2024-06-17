@@ -37,14 +37,15 @@
         {% endfor %}
     </div>
     <div class="col-10 p-3">
-        <h3>{{data | length}} Result Founds!!!</h3> 
+        <h3>{{data | length}} Result Founds!!!</h3>
         <div class="d-flex flex-wrap pt-5">
             {% for post in data %}
             <div class="col-sm-3">
                 <div class="card mx-2">
                     <div class="card-body">
-                        <img src="{{post.image.url}}" class="card-img-top" alt="...">   
-                        <h5 class="card-title text-info"><a href="{% url 'detail_post' post.id %}" class="text-decoration-none text-dark">{{post.title}}</a></h5>
+                        <img src="{{post.image.url}}" class="card-img-top" alt="...">
+                        <h5 class="card-title text-info"><a href="{% url 'detail_post' post.id %}"
+                                class="text-decoration-none text-dark">{{post.title}}</a></h5>
                         <p class="card-text text-danger">{{post.content | truncatewords:10}}</p>
                         <p class="text-warning">Author : {{post.author.first_name}} {{post.author.last_name}}</p>
                         <p>Category :
