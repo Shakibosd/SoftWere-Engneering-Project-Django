@@ -6,6 +6,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('', views.home, name='home'),
     path('Musician/', include('Musician.urls')),
-    path('Album/', include('Album.urls')),
+    path('Album/', include('Album.urls')), 
+    path('Author/', include('author.urls')), 
 ]
     

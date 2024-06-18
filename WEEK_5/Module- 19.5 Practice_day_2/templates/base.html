@@ -1,21 +1,19 @@
 {% load static %}
 <!DOCTYPE html>
 <html lang="en">
-<!-- https://docs.google.com/document/d/1dC7iJab9Fdc9ee2L_5rVLIS6Tahht7uTUTEMeWTeZ_U/edit -->
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="shortcut icon" href="{% static 'img_icon.png' %}" type="image/x-icon">
-    <!-- <link rel="stylesheet" href="style.css"> -->
-    <title>{% block title %}Musicians Diractory{% endblock title %}</title>
+    <title>{% block title %}{% endblock title %}</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css"
         integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 </head>
 
-<body>
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark container">
-        <a class="navbar-brand text-warning" href="#">MusiciansDiractory</a>
+<body style="background-color: rgb(246, 208, 214);">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark container" style="margin-top: 6px; border-radius:10px">
+        <a class="navbar-brand text-warning" href="{% url 'home' %}">MusiciansDiractory</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
             aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
@@ -23,15 +21,30 @@
 
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav mr-auto">
+                {% if user.is_authenticated %}
                 <li class="nav-item active">
-                    <a class="nav-link" href="{% url 'home' %}">Home</a>
+                    <a class="nav-link btn btn-outline-success mx-2" href="{% url 'home' %}">Home</a>
                 </li>
                 <li class="nav-item active">
-                    <a class="nav-link" href="{% url 'musician_list' %}">Musicians</a>
+                    <a class="nav-link btn btn-outline-secondary mx-2" href="{% url 'musician_list' %}">Musicians</a>
                 </li>
                 <li class="nav-item active">
-                    <a class="nav-link" href="{% url 'album_list' %}">Albums</a>
+                    <a class="nav-link btn btn-outline-danger mx-2" href="{% url 'album_list' %}">Albums</a>
                 </li>
+                <li class="nav-item active">
+                    <a class="nav-link btn btn-outline-info mx-2" href="{% url 'profile' %}">Profile</a>
+                </li>
+                <li class="nav-item active">
+                    <a class="nav-link btn btn-outline-warning mx-2" href="{% url 'logout' %}">LogOut</a>
+                </li>
+                {% else %}
+                <li class="nav-item active">
+                    <a class="nav-link btn btn-outline-info mx-2" href="{% url 'signup' %}">Register</a>
+                </li>
+                <li class="nav-item active">
+                    <a class="nav-link btn btn-outline-primary" href="{% url 'login' %}">LogIn</a>
+                </li>
+                {% endif %}
             </ul>
             <form class="form-inline my-2 my-lg-0">
                 <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
