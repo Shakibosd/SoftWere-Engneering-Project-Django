@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block title %}Add/Edit Album{% endblock title %}
+<link rel="shortcut icon" href="{% static 'img_icon.png' %}" type="image/x-icon">
+
+{% block content %}
+<h1 class="mt-4">{% if form.instance.pk %}Edit{% else %}Add{% endif %} Album</h1>
+<form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit" class="btn btn-success">Save</button>
+    <a href="{% url 'album_list' %}" class="btn btn-danger">Cancel</a>
+</form>
+{% endblock %}
