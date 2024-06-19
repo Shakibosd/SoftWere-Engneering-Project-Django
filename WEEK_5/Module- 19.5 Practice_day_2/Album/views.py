@@ -1,12 +1,16 @@
 from django.shortcuts import render, redirect
 from .models import Album
 from .forms import AlbumForm
+from django.contrib.auth.decorators import login_required  
 
+
+@login_required
 def album_list(request):
     albums = Album.objects.all()
     return render(request, 'album_list.html', {'Album': albums})
 
 
+@login_required
 def album_create(request):
     if request.method == 'POST':
         form = AlbumForm(request.POST)
@@ -17,6 +21,8 @@ def album_create(request):
         form = AlbumForm()
     return render(request, 'album_form.html', {'form': form,'flag' : False})
 
+
+@login_required
 def album_edit(request, id):
     album = Album.objects.get(pk=id)
     album_form = AlbumForm(instance=album)
@@ -28,9 +34,9 @@ def album_edit(request, id):
 
     return render(request, 'album_form.html', {'form': album_form,'flag' : True})
 
+
+@login_required
 def album_delete(request, id):
     album = Album.objects.get(id=id)
     album.delete()
     return redirect('album_list')
-
-

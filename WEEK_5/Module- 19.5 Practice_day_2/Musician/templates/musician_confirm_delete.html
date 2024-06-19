@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Delete Musician</title>
+</head>
+
+<body>
+    {% block content %}
+    <div class="container flex items-center justfy-center">
+        <h1>Confirm Deletion</h1>
+        <p>Are you sure you want to delete the musician <strong>{{ object.name }}</strong>?</p>
+
+        <form method="post">
+            {% csrf_token %}
+            <button type="submit" class="btn btn-danger">Yes, delete</button>
+            <a href="{% url 'musician_list' %}" class="btn btn-secondary">Cancel</a>
+        </form>
+    </div>
+    {% endblock content %}
+</body>
+
+</html>

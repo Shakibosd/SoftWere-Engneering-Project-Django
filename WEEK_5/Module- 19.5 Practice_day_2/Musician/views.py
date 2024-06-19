@@ -1,11 +1,14 @@
 from django.shortcuts import render, redirect
 from .models import Musician
 from .forms import MusicianForm
+from django.contrib.auth.decorators import login_required  
 
+@login_required
 def musician_list(request):
     musicians = Musician.objects.all()
     return render(request, 'musician_list.html', {'Musician': musicians})
 
+@login_required
 def musician_create(request):
     if request.method == 'POST':
         form = MusicianForm(request.POST)
@@ -16,6 +19,7 @@ def musician_create(request):
         form = MusicianForm()
     return render(request, 'musician_form.html',  {'form': form, 'flag' : False})
 
+@login_required
 def musician_edit(request, id):
     musician = Musician.objects.get(id=id)
     musician_form = MusicianForm(instance=musician)
@@ -27,6 +31,7 @@ def musician_edit(request, id):
 
     return render(request, 'musician_form.html', {'form': musician_form, 'flag' : False})
 
+@login_required
 def musician_delete(request, id):
     musician = Musician.objects.get(id=id)
     musician.delete()
