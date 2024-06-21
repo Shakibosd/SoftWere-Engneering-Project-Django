@@ -8,14 +8,14 @@
 <title>{% block title %}Profile Page{% endblock title %}</title>
 <h1 class="text-center text-warning"><span class="text-danger"><----Welcome </span> To Profile Page ----></h1>
 <br>
-<div class="container p-5 text-center" style="border: 2px solid gray; width:300px;height:200px;border-radius:10px;">
-    <a class="btn btn-primary" href="{% url 'edit_profile' %}" style="margin: 10px;">Edit Your Profile</a>
+<div class="container p-5 text-center" style="border: 2px solid rgb(0, 166, 255); width:300px;height:200px;border-radius:10px;">
+    <a class="btn btn-primary" href="{% url 'edit_profile' %}" style="margin: 30px;">Edit Your Profile</a>
 </div>
 <br>
-<div class="col-12 p-3" style="border: 2px solid gray; border-radius:10px;">
+<div class="col-12 p-3 text-white" style="border: 2px solid rgb(0, 166, 255); border-radius:10px;">
     <h3 class="text-center">Order History</h3>
     <table class="table mt-3">
-        <thead>
+        <thead class="text-white">
             <tr>
                 <th scope="col">Brand</th>
                 <th scope="col">Car Title</th>
@@ -27,7 +27,7 @@
         <tbody class="table-group-divider">
             {% if historie %}
             {% for his in historie %}
-            <tr>
+            <tr class="text-white">
                 <th scope="row">{{his.car_model.brand}}</th>
                 <td>{{his.car_model.title}}</td>
                 <td>{{his.purchese_date}}</td>
