@@ -7,8 +7,8 @@
 <section>
     <div class="flex-wrap px-5 pt-3 align-items-center container pt-5">
         <div class="row">
-            <div class="col-6 pt-5">
-                <h1 class="text-info text-center">Welcome To | My Car Arena</h1>
+            <div class="col-6 pt-4">
+                <h2 class="text-info text-center">Welcome To | My Car Arena</h2>
                 <p class="text-white">The Toyota Noah (Japanese: トヨタ・ノア, Hepburn: Toyota Noa) is a minivan with two rear
                     sliding doors built by Toyota and sold mainly in Asian countries. It is positioned below the
                     Alphard, and above the Sienta. The Noah was also positioned below the Estima until the latter was
@@ -17,9 +17,12 @@
                     Being a front-wheel drive-based vehicle, it replaces the rear-wheel drive-based TownAce/LiteAce
                     Noah, while retaining the "R" model code series and generation numbering. In contrast with its
                     predecessor, the Noah features rear sliding doors on both sides.[4]</p>
+                {% if not user.is_authenticated %}
+                <a class="btn btn-outline-info" href="{% url 'user_login' %}">Shop Now>></a>
+                {% endif %}
             </div>
             <div class="col-6">
-                <img style="width: 420px; height: 420px; border-radius: 10px" src="{% static 'car1.jpg' %}" alt="pic">
+                <img style="width: 440px; height: 440px; border-radius: 10px" src="{% static 'car1.jpg' %}" alt="pic">
             </div>
         </div>
     </div>
@@ -58,32 +61,37 @@
 <section>
     <h1 class="text-center text-info pt-5">Our Products</h1>
     {% if user.is_authenticated %}
-    <div class="d-flex flex-wrap pt-2 container">
-        <div class="col-2 bg-dark p-3" style="width: 180px; height:320px; border-radius:10px">
-            <h4><b>All Category</b></h4>
-            {% for cat in category %}
-            <div class="form-check">
-                <input class="form-check-input" type="radio" name="category" id="{{cat.id}}">
-                <label class="form-check-label" for="{{cat.id}}">
-                    <b><a href="{% url 'category_wise_post' cat.slug %}"
-                            class="text-decoration-none">{{cat.name}}</a></b>
+    <div>
+        <br>
+        <div class="bg-dark p-5" style="border-radius: 10px;">
+            <h4 class="text-center text-white"><b>All Category!</b></h4>
+            <div class="d-flex flex-warp pt-2 gap-5" style="padding-left: 80px;">
+                {% for cat in category %}
+                <div class="form-check">
+                    <input class="form-check-input" type="hidden" name="category" id="{{cat.id}}">
+                    <label class="form-check-label" for="{{cat.id}}">
+                        <b><a href="{% url 'category_wise_post' cat.slug %}"
+                                class="text-decoration-none">{{cat.name}}</a></b>
+                    </label>
+                </div>
+                {% endfor %}
+                <input class="form-check-input" type="hidden" name="category" id="{{cat.id}}">
+                <label for="{{cat.id}}">
+                    <b><a style="text-decoration: none;" href="{% url 'home' %}">All</a></b>
                 </label>
             </div>
-            {% endfor %}
-            <input class="form-check-input" type="radio" name="category" id="{{cat.id}}">
-            <label class="form-check-label" for="{{cat.id}}">
-                <b><a style="text-decoration: none;" href="{% url 'home' %}">All</a></b>
-            </label>
         </div>
         {% endif %}
+        <br>
         <div class="col-12 container">
             {% if not user.is_authenticated %}
             <div class="d-flex flex-wrap pt-2">
                 {% for post in unauthenticated_user %}
                 <div class="col-sm-3">
-                    <div class="card mx-2 bg-dark">
-                        <div class="card-body" style="width: 250px; height: 520px">
-                            <img src="{{post.image.url}}" class="card-img-top rounded mx-auto d-block" alt="pic" style="width: 200px; height:200px; border-radius:10px;">
+                    <div class="card mx-3 bg-dark" style="border-radius: 10px">
+                        <div class="card-body" style="width: 270px; height: 400px;">
+                            <img src="{{post.image.url}}" class="card-img-top rounded mx-auto d-block" alt="pic"
+                                style="width: 200px; height:200px; border-radius:10px;">
                             <h5 class="card-title text-info">{{post.title}}</h5>
                             <p class="card-text text-danger">Brand : {{post.brand}}</p>
                             <p class="text-warning">Price : {{post.price}}</p>
@@ -102,13 +110,15 @@
                         {% for post in authenticated_user %}
                         <div class="col-sm-3">
                             <div class="card mx-2 bg-dark" style="border-radius: 10px;">
-                                <div class="card-body" style="width: 250px; height: 520px">
-                                    <img src="{{post.image.url}}" class="card-img-top rounded mx-auto d-block" alt="pic" style="width: 200px; height:200px; border-radius:10px;">
+                                <div class="card-body" style="width: 270px; height: 450px">
+                                    <img src="{{post.image.url}}" class="card-img-top rounded mx-auto d-block" alt="pic"
+                                        style="width: 200px; height:200px; border-radius:10px;">
                                     <h5 class="card-title card-text text-info">{{post.title}}</h5>
                                     <p class="card-brand card-text text-danger">Brand : {{post.brand}}</p>
                                     <p class="card-price text-warning">Price : {{post.price}}</p>
-                                    <a href="{% url 'detail_post' post.id %}" class="card-text card-button btn btn-success">Show Details</a>
-                                    <p class="text-white">Category : 
+                                    <a href="{% url 'detail_post' post.id %}"
+                                        class="card-text card-button btn btn-success">Show Details</a>
+                                    <p class="text-white">Category :
                                         {% for cat in post.category.all %}
                                         <button class="btn btn-primary btn-sm m-2" disabled>{{cat.name}}</button>
                                         {% endfor %}
