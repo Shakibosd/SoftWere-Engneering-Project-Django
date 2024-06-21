@@ -1,0 +1,130 @@
+{% extends 'base.html' %}
+
+{% load static %}
+{% block title %}Home Page{% endblock title %}
+
+{% block content %}
+<section>
+    <div class="flex-wrap px-5 pt-3 align-items-center container pt-5">
+        <div class="row">
+            <div class="col-6 pt-5">
+                <h1 class="text-info text-center">Welcome To | My Car Arena</h1>
+                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Obcaecati aspernatur aliquid explicabo vero
+                    incidunt
+                    voluptatum, assumenda nisi neque quas optio? Lorem ipsum dolor sit amet consectetur adipisicing
+                    elit.
+                    Laudantium nemo dolorem distinctio sed officiis? Ab deserunt excepturi repudiandae nesciunt, ducimus
+                    impedit, distinctio placeat magni quo repellat eius quae soluta aperiam. Lorem ipsum dolor sit amet,
+                    consectetur adipisicing elit. Incidunt provident voluptates at velit hic eaque fuga omnis! Deleniti,
+                    nulla
+                    et rerum itaque a quaerat eaque fugiat hic harum laboriosam debitis?</p>
+            </div>
+            <div class="col-6">
+                <img style="width: 400px; height: 400px; border-radius: 10px" src="{% static 'car1.jpg' %}" alt="pic">
+            </div>
+        </div>
+    </div>
+</section>
+<section>
+    <h1 class="text-center text-info pt-5">Our Partners</h1>
+    <div class="container">
+        <div class="row pt-5">
+            <div class="col-2">
+                <img src="{% static 'carBrand1.jpg' %}" alt="pic"
+                    style="width: 100px; height: 100px; border-radius: 30px">
+            </div>
+            <div class="col-2">
+                <img src="{% static 'carBrand2.jpg' %}" alt="pic"
+                    style="width: 100px; height: 100px; border-radius: 30px">
+            </div>
+            <div class="col-2">
+                <img src="{% static 'carBrand3.jpg' %}" alt="pic"
+                    style="width: 100px; height: 100px; border-radius: 30px">
+            </div>
+            <div class="col-2">
+                <img src="{% static 'carBrand4.jpg' %}" alt="pic"
+                    style="width: 100px; height: 100px; border-radius: 30px">
+            </div>
+            <div class="col-2">
+                <img src="{% static 'carBrand5.jpg' %}" alt="pic"
+                    style="width: 100px; height: 100px; border-radius: 30px">
+            </div>
+            <div class="col-2">
+                <img src="{% static 'carBrand6.jpg' %}" alt="pic"
+                    style="width: 100px; height: 100px; border-radius: 30px">
+            </div>
+        </div>
+    </div>
+</section>
+<section>
+    <h1 class="text-center text-info pt-5">Our Products</h1>
+    {% if user.is_authenticated %}
+    <div class="d-flex flex-wrap pt-2">
+        <div class="col-2 bg-light p-3" style="width: 180px; height:320px;">
+            <h4><b>All Category</b></h4>
+            {% for cat in category %}
+            <div class="form-check">
+                <input class="form-check-input" type="radio" name="category" id="{{cat.id}}">
+                <label class="form-check-label" for="{{cat.id}}">
+                    <b><a href="{% url 'category_wise_post' cat.slug %}"
+                            class="text-decoration-none">{{cat.name}}</a></b>
+                </label>
+            </div>
+            {% endfor %}
+            <input class="form-check-input" type="radio" name="category" id="{{cat.id}}">
+            <label class="form-check-label" for="{{cat.id}}">
+                <b><a style="text-decoration: none;" href="{% url 'home' %}">All</a></b>
+            </label>
+        </div>
+        {% endif %}
+        <div class="col-12 container">
+            <!-- <h3>{{unauthenticated_user | length}} Result Founds!!!</h3> -->
+            {% if not user.is_authenticated %}
+            <div class="d-flex flex-wrap pt-2">
+                {% for post in unauthenticated_user %}
+                <div class="col-sm-3">
+                    <div class="card mx-2">
+                        <div class="card-body" style="width: 150px; height: 500px">
+                            <img src="{{post.image.url}}" class="card-img-top rounded mx-auto d-block" alt="pic"
+                                style="width: 200px; height:200px; border-radius:10px;">
+                            <h5 class="card-title text-info">{{post.title}}</h5>
+                            <p class="card-text text-danger">{{post.brand}}</p>
+                            <p class="text-warning">Price : {{post.price}}</p>
+                            <a href="{% url 'detail_post' post.id %}" class="btn btn-success">Show Details</a>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+            {% else %}
+            <div class="d-flex flex-warp pt-2">
+                <div class="col-12 container">
+                    <h3>{{authenticated_user | length}} Result Founds!!!</h3>
+                    <div class="d-flex flex-wrap pt-2">
+                        {% for post in authenticated_user %}
+                        <div class="col-sm-3">
+                            <div class="card mx-2">
+                                <div class="card-body" style="width: 150px; height: 500px">
+                                    <img src="{{post.image.url}}" class="card-img-top rounded mx-auto d-block" alt="pic"
+                                        style="width: 200px; height:200px; border-radius:10px;">
+                                    <h5 class="card-title text-info">{{post.title}}</h5>
+                                    <p class="card-text text-danger">{{post.brand}}</p>
+                                    <p class="text-warning">Price : {{post.price}}</p>
+                                    <a href="{% url 'detail_post' post.id %}" class="btn btn-success">Show Details</a>
+                                    <p>Category :
+                                        {% for cat in post.category.all %}
+                                        <button class="btn btn-primary btn-sm m-2" disabled>{{cat.name}}</button>
+                                        {% endfor %}
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+            {% endif %}
+        </div>
+    </div>
+</section>
+{% endblock content %}
