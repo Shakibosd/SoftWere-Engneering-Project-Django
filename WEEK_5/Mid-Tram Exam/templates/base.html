@@ -12,39 +12,41 @@
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
 </head>
 
-<body style="background-color:beige;" class="pt-1">
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark container" style="border-radius: 10px;">
-        <div class="container-fluid">
-            <h1 class="text-white">Car Project</h1>&nbsp;&nbsp;
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
-                data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
-                aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                    <!-- {% if request.user.is_authenticated %}
-                    <li class="nav-item d-flex">
-                        <a class="nav-link active" aria-current="page" href="{% url 'add_post' %}">AddCar</a>
-                    </li>
-                    {% endif %} -->
-                </ul>
-                <div class="d-flex">
+<body style="background-color:cadetblue;" class="pt-1">
+    <header>
+        <nav class="navbar navbar-expand-lg navbar-dark bg-dark container" style="border-radius: 10px;">
+            <div class="container-fluid">
+                <h1 class="text-white">Car Arena</h1>&nbsp;&nbsp;
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                    data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+                    aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                        {% if request.user.is_authenticated %}
-                        <a class="btn btn-outline-primary mx-2" aria-current="page" href="{% url 'home' %}">Home</a>
-                        <a class="btn btn-outline-warning mx-2" href="{% url 'profile' %}">Profile</a>
-                        <a class="btn btn-outline-danger" href="{% url 'user_logout' %}">LogOut</a>
-                        {% else %}
-                        <a class="btn btn-outline-primary mx-2" aria-current="page" href="{% url 'home' %}">Home</a>
-                        <a class="btn btn-outline-warning mx-2" href="{% url 'register' %}">Register</a>
-                        <a class="btn btn-outline-success" href="{% url 'user_login' %}">Login</a>
+                        <!-- {# {% if request.user.is_authenticated %}
+                        <li class="nav-item d-flex">
+                            <a class="nav-link active" aria-current="page" href="{% url 'add_post' %}">AddCar</a>
+                        </li>
+                        {% endif %} #} -->
                     </ul>
-                    {% endif %}
+                    <div class="d-flex">
+                        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                            {% if request.user.is_authenticated %}
+                            <a class="btn btn-outline-primary mx-2" aria-current="page" href="{% url 'home' %}">Home</a>
+                            <a class="btn btn-outline-warning mx-2" href="{% url 'profile' %}">Profile</a>
+                            <a class="btn btn-outline-danger" href="{% url 'user_logout' %}">LogOut</a>
+                            {% else %}
+                            <a class="btn btn-outline-primary mx-2" aria-current="page" href="{% url 'home' %}">Home</a>
+                            <a class="btn btn-outline-warning mx-2" href="{% url 'register' %}">Register</a>
+                            <a class="btn btn-outline-success" href="{% url 'user_login' %}">Login</a>
+                            {% endif %}
+                        </ul>
+                    </div>
                 </div>
             </div>
-        </div>
-    </nav>
+        </nav>
+    </header>
     <br>
     {% for i in messages %}
     <div class="container">
@@ -52,8 +54,15 @@
     </div>
     {% endfor %}
 
-    {% block content %}
-    {% endblock content %}
+    <div class="container">
+        {% block content %}
+        {% endblock content %}
+    </div>
+
+    <footer class="mt-4 container">
+        <p class="text-center bg-dark text-white p-3" style="border-radius: 10px;">&copy; 2024 developed by Nazmus
+            Shakib</p>
+    </footer>
 
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"
         integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p"

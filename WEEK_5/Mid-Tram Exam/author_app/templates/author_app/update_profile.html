@@ -7,11 +7,18 @@
 <link rel="shortcut icon" href="{% static 'img_icon.png' %}" type="image/x-icon">
 <title>{% block title %}Profile Page{% endblock title %}</title>
 
-<form style="width: 50%; margin:auto;" method="post">
+<form style="width: 50%; margin:auto;" method="post" novalidate>
     <h1 class="text-center text-info">Update Your Profile</h1>
     <a class="btn btn-danger btn-sm" href="{% url 'pass_change' %}">Change Your Password</a>
+    <br>
+    <br>
     {% csrf_token %}
-    {{ form|crispy }}
+    <!-- {{ form|crispy }} -->
+    {% for fm in form %}
+    {{fm.label_tag}}
+    {{fm}}
+    <p class="text-danger p-2">{{fm.errors|striptags}}</p>
+    {% endfor %}
     <button class="btn btn-warning text-white">Submit</button>
 </form>
 {% endblock content %}

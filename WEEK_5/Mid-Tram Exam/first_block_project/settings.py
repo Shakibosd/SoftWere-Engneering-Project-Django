@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'author_app',
     'categories_app',
     'post_app',
+    'payment_app',
     'crispy_forms',
     'crispy_bootstrap5',
 ]

@@ -10,7 +10,7 @@ from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from post_app.models import Post
 from django.contrib.auth.views import LoginView, LogoutView
-
+from payment_app.models import PaymentModel
 def register(request):
     if request.method == 'POST':
         register_form = forms.RegistrationForm(request.POST)
@@ -45,7 +45,8 @@ def user_login(request):
 @login_required 
 def profile(request):
     data = Post.objects.filter(author = request.user)
-    return render(request, './author_app/profile.html',{'data' : data})      
+    historie = PaymentModel.objects.all()
+    return render(request, './author_app/profile.html',context={'data' : data,"historie":historie})      
 
 
 @login_required 

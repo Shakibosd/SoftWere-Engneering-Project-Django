@@ -13,5 +13,6 @@ urlpatterns = [
     path('author_app/',include('author_app.urls')),
     path('categories_app/',include('categories_app.urls')),
     path('post_app/',include('post_app.urls')),
+    path('payment_app/', include('payment_app.urls')),
 ]
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

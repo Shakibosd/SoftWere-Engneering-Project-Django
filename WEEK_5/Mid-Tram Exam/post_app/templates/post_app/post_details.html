@@ -13,6 +13,7 @@
             <h5 class="card-title text-info">{{post.title}}</h5>
             <p class="card-text text-danger">{{post.content}}</p>
             <p class="text-warning">Author : {{post.author.first_name}} {{post.author.last_name}}</p>
+            <p class="text-warning">Quantity : {{post.car_quantity}}</p>
             <p>Category :
                 {% for cat in post.category.all %}
                 <button class="btn btn-primary btn-sm m-2" disabled>{{cat.name}}</button>
@@ -20,7 +21,7 @@
             </p>
             <br>
             {% if user.is_authenticated %}
-            <a class="btn btn-secondary" href="#">Buy Now</a>
+            <a class="btn btn-secondary" href="{% url 'payment' id=post.id %}">Buy Now</a>
             {% endif %}
         </div>
     </div>

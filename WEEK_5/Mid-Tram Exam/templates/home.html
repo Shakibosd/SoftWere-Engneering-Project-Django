@@ -9,7 +9,7 @@
         <div class="row">
             <div class="col-6 pt-5">
                 <h1 class="text-info text-center">Welcome To | My Car Arena</h1>
-                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Obcaecati aspernatur aliquid explicabo vero
+                <p class="text-white">Lorem ipsum dolor sit amet consectetur adipisicing elit. Obcaecati aspernatur aliquid explicabo vero
                     incidunt
                     voluptatum, assumenda nisi neque quas optio? Lorem ipsum dolor sit amet consectetur adipisicing
                     elit.
@@ -20,7 +20,7 @@
                     et rerum itaque a quaerat eaque fugiat hic harum laboriosam debitis?</p>
             </div>
             <div class="col-6">
-                <img style="width: 400px; height: 400px; border-radius: 10px" src="{% static 'car1.jpg' %}" alt="pic">
+                <img style="width: 420px; height: 420px; border-radius: 10px" src="{% static 'car1.jpg' %}" alt="pic">
             </div>
         </div>
     </div>
@@ -59,10 +59,10 @@
 <section>
     <h1 class="text-center text-info pt-5">Our Products</h1>
     {% if user.is_authenticated %}
-    <div class="d-flex flex-wrap pt-2">
+    <div class="d-flex flex-wrap pt-2 container">
         <div class="col-2 bg-light p-3" style="width: 180px; height:320px;">
             <h4><b>All Category</b></h4>
-            {% for cat in category %}
+            {% for cat in category %}   
             <div class="form-check">
                 <input class="form-check-input" type="radio" name="category" id="{{cat.id}}">
                 <label class="form-check-label" for="{{cat.id}}">
@@ -78,7 +78,6 @@
         </div>
         {% endif %}
         <div class="col-12 container">
-            <!-- <h3>{{unauthenticated_user | length}} Result Founds!!!</h3> -->
             {% if not user.is_authenticated %}
             <div class="d-flex flex-wrap pt-2">
                 {% for post in unauthenticated_user %}
@@ -88,7 +87,7 @@
                             <img src="{{post.image.url}}" class="card-img-top rounded mx-auto d-block" alt="pic"
                                 style="width: 200px; height:200px; border-radius:10px;">
                             <h5 class="card-title text-info">{{post.title}}</h5>
-                            <p class="card-text text-danger">{{post.brand}}</p>
+                            <p class="card-text text-danger">Brand : {{post.brand}}</p>
                             <p class="text-warning">Price : {{post.price}}</p>
                             <a href="{% url 'detail_post' post.id %}" class="btn btn-success">Show Details</a>
                         </div>
@@ -97,8 +96,8 @@
                 {% endfor %}
             </div>
             {% else %}
-            <div class="d-flex flex-warp pt-2">
-                <div class="col-12 container">
+            <div class="d-flex flex-warp pt-2 container">
+                <div class="col-12">
                     <h3>{{authenticated_user | length}} Result Founds!!!</h3>
                     <div class="d-flex flex-wrap pt-2">
                         {% for post in authenticated_user %}
@@ -108,7 +107,7 @@
                                     <img src="{{post.image.url}}" class="card-img-top rounded mx-auto d-block" alt="pic"
                                         style="width: 200px; height:200px; border-radius:10px;">
                                     <h5 class="card-title text-info">{{post.title}}</h5>
-                                    <p class="card-text text-danger">{{post.brand}}</p>
+                                    <p class="card-text text-danger">Brand : {{post.brand}}</p>
                                     <p class="text-warning">Price : {{post.price}}</p>
                                     <a href="{% url 'detail_post' post.id %}" class="btn btn-success">Show Details</a>
                                     <p>Category :
