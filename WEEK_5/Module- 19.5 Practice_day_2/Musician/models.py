@@ -1,7 +1,6 @@
 
 from django.db import models
 
-
 class Musician(models.Model):
     INSTRUMENT_CHOICES = [
         ('guitar', 'Guitar'),
