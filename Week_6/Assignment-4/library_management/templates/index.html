@@ -1,44 +1,54 @@
+{% load static %}
+
 {% if messages %}
 {% for m in messages %}
-<p class='text-info p-4'>{{m}}</p>
+<p class='container text-success'>{{m}}</p>
 <br>
 {% endfor %}
 {% endif %}
 {% if not self.request.user.is_authenticated %}
 {% include "home.html" %}
 {% endif %}
-<h3 class='text-center m-2'>TOTAL BOOK FOND: {{books | length}}</h3>
+<h3 class='text-center text-light m-2 pt-5'>BOOKS FOUNDED -> {{books | length}}</h3>
 {% if books %}
 
-<div class='row d-flex justify-content-evenly flex-wrap'>
-  {% if categorys %}
-  <div class='col-lg-2 col-md-2 col-sm-12 d-flex p-4 mt-1 mb-1 m-auto flex-wrap bg-dark  p-2 m-2'>
+
+{% if categorys %}
+<div class='card bg-dark container' style="border-radius: 10px; padding:20px 30px;">
+  <h3 class="text-light text-center">All Category!</h3>
+  <div class="d-flex gap-5">
     {% for category in categorys %}
-    <a href="{% url 'cat_slug' category.slug%}" class='btn  btn-primary btn-sm col-lg-12 col-sm-12 col-md-12 mt-2'
-      disabled>{{category.name}}</a>
-
+    <a href="{% url 'cat_slug' category.slug%}" style="text-decoration: none; color:wheat;">{{category.id}} .
+      {{category.name}}</a>
     {% endfor %}
-    {% endif %}
+    <div class="d-flex">
+      <label for="{{cat.id}}">
+        <b><a style="text-decoration: none; color:wheat;" href="{% url 'home' %}">All</a></b>
+      </label>
+    </div>
   </div>
-
-  <div class='row col-lg-10 col-md-10 col-sm-12 justify-content-evenly mt-2 mb-1 m-auto'>
+  {% endif %}
+</div>
+<br>
+<div class='row d-flex justify-content-evenly flex-wrap container'>
+  <div class='row justify-content-center gap-4'>
     {% for book in books %}
-    <div class="card" style="width: 18rem;">
-      <img src="{{book.image.url}}" class="card-img-top text-align-center " style='width: 100%; margin:auto;'
-        alt="book image">
+    <div class="card bg-dark text-white" style="width: 20rem; border-radius: 10px;">
+      <img src="{{book.image.url}}" class="card-img-top text-align-center"
+        style='width: 80%; margin:auto; border-radius:10px;' alt="book image">
       <div class="card-body">
-        <h5 class="card-title">title: {{book.title}}</h5>
-        <p class="card-text">Description: {{book.description | truncatewords:4}}</p>
-        <p>price: {{book.price}}</p>
-        Category
+        <h5 class="card-title">Title : {{book.title}}</h5>
+        <br>
+        <p class="card-text">Description : {{book.description | truncatewords:2}}</p>
+        <p>price : {{book.price}}</p>
         <div class='d-flex flex-wrap'>
-
           {% for ca in book.category.all %}
-          <button class="btn btn-dark btn-md m-2" type='button' disabled>{{ca}}</button>
+          Category -> <a class="btn btn-secondary btn-sm" disabled>{{ca}}</a>
           {% endfor %}
         </div>
+        <br>
         <div class='d-flex flex-wrap'>
-          <a href="{% url 'book_details' book.id%}" class="btn btn-primary m-1 btn-md">Details</a>
+          <a href="{% url 'book_details' book.id%}" class="btn btn-primary m-1 btn-md">Details>></a>
         </div>
       </div>
     </div>

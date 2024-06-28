@@ -28,10 +28,10 @@ def ReviewViewFunc(request,id):
             return redirect('home')
     else:
         form=ReviewForm()
-    return render(request,'review.html',{'form':form})
+    return render(request,'./Books/review.html',{'form':form})
 
 class BookDetailsView(DetailView):
-    template_name='book_details.html'
+    template_name='./Books/book_details.html'
     model=BookModel
     pk_url_kwarg='id'
     success_url=reverse_lazy('home')
@@ -83,7 +83,7 @@ def ReturnBook(request,id):
     return redirect('home')
 
 class BorrowedBookView(LoginRequiredMixin,ListView):
-    template_name='borrowed_book_report_history.html'
+    template_name='./Books/borrowed_book_report_history.html'
     model=Borrow
     context_object_name='borrowed_books'
     def get_queryset(self):
