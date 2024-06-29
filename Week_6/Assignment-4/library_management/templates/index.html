@@ -9,16 +9,23 @@
 {% if not self.request.user.is_authenticated %}
 {% include "home.html" %}
 {% endif %}
+{%if user.is_authenticated%}
 <h3 class='text-center text-light m-2 pt-5'>BOOKS FOUNDED -> {{books | length}}</h3>
+{%endif%}
+
 {% if books %}
 
+{% if user.is_unauthenticated %}
+<h1 class="text-center text-white"><--Our Books--></h1>
+{% endif %}
 
+{% if user.is_authenticated %}
 {% if categorys %}
 <div class='card bg-dark container' style="border-radius: 10px; padding:20px 30px;">
   <h3 class="text-light text-center">All Category!</h3>
   <div class="d-flex gap-5">
     {% for category in categorys %}
-    <a href="{% url 'cat_slug' category.slug%}" style="text-decoration: none; color:wheat;">{{category.id}} .
+    <a href="{% url 'cat_slug' category.slug%}" style="text-decoration: none; color:wheat;">
       {{category.name}}</a>
     {% endfor %}
     <div class="d-flex">
@@ -29,13 +36,16 @@
   </div>
   {% endif %}
 </div>
+{% endif %}
+<br>
+<h1 class="text-center text-white"><--Our Books--></h1>
 <br>
 <div class='row d-flex justify-content-evenly flex-wrap container'>
   <div class='row justify-content-center gap-4'>
     {% for book in books %}
     <div class="card bg-dark text-white" style="width: 20rem; border-radius: 10px;">
-      <img src="{{book.image.url}}" class="card-img-top text-align-center"
-        style='width: 80%; margin:auto; border-radius:10px;' alt="book image">
+      <img src="{{book.image.url}}" class="card-img-top" style='width: 290px; height:240px; border-radius:10px;'
+        alt="book image">
       <div class="card-body">
         <h5 class="card-title">Title : {{book.title}}</h5>
         <br>
@@ -47,6 +57,8 @@
           {% endfor %}
         </div>
         <br>
+        <p>Return Date: {{ Borrow.return_date }}</p>
+        <!-- <p>Return Date: {{ borrow_record.return_date }}</p> -->
         <div class='d-flex flex-wrap'>
           <a href="{% url 'book_details' book.id%}" class="btn btn-primary m-1 btn-md">Details>></a>
         </div>

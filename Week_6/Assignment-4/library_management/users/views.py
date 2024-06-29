@@ -15,6 +15,7 @@ from .models import Deposite, UserBankAccount
 from django.core.mail import EmailMessage,EmailMultiAlternatives
 from django.template.loader import render_to_string
 
+
 def send_mail(user,subject,type,book):
         mail_subject=subject
         message=render_to_string('mail.html',{
@@ -41,7 +42,7 @@ class RegistrationView(CreateView):
         return context
 
 class UserLoginView(LoginView):
-    template_name='signup.html'
+    template_name='login.html'
     def get_success_url(self):
         return reverse_lazy('home')
 
@@ -50,7 +51,6 @@ class UserLoginView(LoginView):
         return super().form_valid(form)
     
     def form_invalid(slef,form):
-        messages.warning(slef.request,'Incorrect Information. Please Correctly Information')
         return super().form_invalid(form)
     def get_context_data(self,*args,**kwargs):
         context=super().get_context_data(*args,**kwargs)
@@ -66,7 +66,7 @@ class UserLogoutView(LoginRequiredMixin,LogoutView):
 class DeposteView(LoginRequiredMixin,CreateView):
     model=Deposite
     form_class=DepositeForm
-    template_name='signup.html'
+    template_name='deposite.html'
     success_url=reverse_lazy('home')
     def get_form_kwargs(self):
         kwargs=super().get_form_kwargs()
@@ -91,3 +91,4 @@ class DeposteView(LoginRequiredMixin,CreateView):
         context=super().get_context_data(**kwargs)
         context['type']='Deposite Money'
         return context
+    

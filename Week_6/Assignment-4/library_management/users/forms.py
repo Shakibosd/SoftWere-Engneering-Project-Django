@@ -4,7 +4,6 @@ from django.contrib.auth.forms import UserCreationForm
 from .models import UserBankAccount,Deposite
 from django.contrib.auth.mixins import LoginRequiredMixin
 
-
 class RegistreationForm(UserCreationForm):
     first_name=forms.CharField(max_length=100,widget=forms.TextInput(attrs={'id':'required'}))
     last_name=forms.CharField(max_length=100,widget=forms.TextInput(attrs={'id':'required'}))
@@ -23,25 +22,20 @@ class RegistreationForm(UserCreationForm):
     
 class DepositeForm(forms.ModelForm):
     class Meta:
-        model=Deposite
-        fields=['amount']
+        model = Deposite
+        fields = ['amount']
 
-    def __init__(self,*args,**kwargs):
-        self.account=kwargs.pop('account')
-        super().__init__(*args,**kwargs)
+    def __init__(self, *args, **kwargs):
+        self.account = kwargs.pop('account', None)
+        super().__init__(*args, **kwargs)
 
-    def save(self,commit=True):
-        self.instance.account=self.account
-        return super().save()
-    def clean_amount(self):
-        min_diposite_amount=100
-        amount=self.cleaned_data.get('amount')
-        if amount < min_diposite_amount:
-            raise forms.ValidationError(
-                f'you need to deposite minimum {min_diposite_amount} $'
-            )
-        return amount
-
+    def save(self, commit=True):
+        instance = super().save(commit=False)
+        if self.account:
+            instance.account = self.account
+        if commit:
+            instance.save()
+        return instance
 
 
 

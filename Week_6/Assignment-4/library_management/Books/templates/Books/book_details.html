@@ -1,34 +1,63 @@
 {% extends "base.html" %}
+{% block title %}book detail page{% endblock title %}
+
 {% block content %}
-  
-    <div class="card mt-3 bg-dark text-white" style="width: 70rem; margin:auto; border-radius: 10px;">
-      {% if messages %}
-      {% for m in messages %}
-      <p class='text-info p-4'>{{m}}</p>
+
+<div class="card mt-3 bg-dark text-white" style="width: 70rem; margin:auto; border-radius: 10px;">
+  {% if messages %}
+  {% for m in messages %}
+  <p class='text-info p-4'>{{m}}</p>
+  <br>
+  {% endfor %}
+  {% endif %}
+  <div class="card-body d-flex justify-content-center gap-5">
+    <img src="{{book.image.url}}" class="card-img-top" style='border-radius: 10px; width:500px; height:500px;'
+      alt="book_ima">
+    <div>
+      <h5 class="card-title">Title : {{book.title}}</h5>
       <br>
-      {% endfor %}
-      {% endif %}
-      <div class="card-body d-flex flex-wrap justify-content-evenly m-2">
-      
-        <img src="{{book.image.url}}" class="card-img-top text-align-center " style='width: 50%; margin:auto; border-radius: 10px;' alt="book image">
-      
-      <div>
-        <h5 class="card-title">Title : {{book.title}}</h5>
-        <br>
-        <p class="card-text">Description : {{book.description}}</p>
-        <p>price : {{book.price}}</p>
-        <div class='d-flex flex-wrap'>
-         {% for ca in book.category.all  %}
-         Category -> <a class="btn btn-secondary btn-sm" type='button' disabled>{{ca}}</a>
-          {% endfor %}
-        </div>
-        <br>
-        <div class='d-flex flex-wrap'>
-          {% if user.is_authenticated %}
-          <a href="{% url 'borrow_book' book.id %}" class="btn btn-primary m-1 btn-md">borrow</a>
-          
-          {% endif %}
-        </div>
+      <p class="card-text">Description : {{book.description}}</p>
+      <p>Price : {{book.price}}</p>
+      <div class='d-flex flex-wrap'>
+        {% for ca in book.category.all %}
+        Category -> <a class="btn btn-secondary btn-sm" type='button' disabled>{{ca}}</a>
+        {% endfor %}
       </div>
-   </div>     
-{% endblock content %}
+      <br>
+      <!-- Review and Rating Form -->
+      {% if user.is_authenticated %}
+      <form action="{% url 'submit_review' book.id %}" method="post" novalidate>
+        {% csrf_token %}
+        <div class="form-group">
+          <label for="review_body"></label>
+          <textarea id="review_body" name="review_body" class="form-control"></textarea>
+        </div>
+        <div class="form-group">
+          <label for="rating">Rating:</label>
+          <select id="rating" name="rating" class="form-control" required>
+            <option value="1">1 - Poor</option>
+            <option value="2">2 - Fair</option>
+            <option value="3">3 - Good</option>
+            <option value="4">4 - Very Good</option>
+            <option value="5">5 - Excellent</option>
+          </select>
+        </div>
+        <button type="submit" class="btn btn-success mt-2">Submit Review</button>
+      </form>
+      {% endif %}
+      <div class='d-flex flex-wrap'>
+        {% if user.is_authenticated %}
+        <a href="{% url 'borrow_book' book.id %}" class="btn btn-primary m-1 btn-md">borrow</a>
+        {% endif %}
+        <!-- Display Existing Reviews -->
+        {% for review in book.book.review.all %}
+        <div class="review">
+          <p><b>{{ review.user.username }}</b> {{ review.rating }} stars</p>
+          <p>{{ review.body }}</p>
+        </div>
+        <hr>
+        {% endfor %}
+      </div>
+    </div>
+  </div>
+  {% endblock content %}

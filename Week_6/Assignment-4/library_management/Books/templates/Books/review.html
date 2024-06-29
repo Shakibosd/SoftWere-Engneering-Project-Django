@@ -1,5 +1,7 @@
 {% extends "base.html" %}
 {% load crispy_forms_tags %}
+{% block title %}review page{% endblock title %}
+
 {% block content %}
 <form style='width: 50%; margin:auto;' class='mt-5 p-3' method='post'>
     {% csrf_token %}
