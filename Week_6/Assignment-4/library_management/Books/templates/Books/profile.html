@@ -2,6 +2,11 @@
 {% block title %}profile page{% endblock title %}
 
 {% block content %}
+<br>
+<br>
+<div class="container">
+  <a class="btn btn-primary btn-lg" href="{% url 'edit_profile' %}">Edit Your Profile</a>
+</div>
 {% for book in borrowed_books %}
 <div style="width: 40rem; margin:auto; margin-top:10px;">
   {% if messages %}
@@ -10,7 +15,7 @@
   <br>
   {% endfor %}
   {% endif %}
-  
+
   <div class="card bg-dark text-white">
     <img src="{{book.book.image.url}}" class="card-img-top mx-auto d-block"
       style='width: 475px; height:270px; border-radius: 10px;' alt="book_img">

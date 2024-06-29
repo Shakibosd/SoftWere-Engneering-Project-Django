@@ -16,6 +16,12 @@ from django.contrib import messages
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.views.generic import TemplateView
 from .models import BookModel, Review
+from django.contrib.auth.forms import AuthenticationForm, PasswordChangeForm
+from django.contrib.auth import authenticate, login, logout, update_session_auth_hash
+from django.contrib.auth.models import User
+from django.views.generic.edit import UpdateView
+from django.views.generic.edit import FormView
+from .forms import ChangeUserForm
 
 def ReviewViewFunc(request,id):
     book =get_object_or_404(BookModel,pk=id)
@@ -129,3 +135,37 @@ def submit_review(request, book_id):
         return redirect('profile') 
 
     return redirect('book_detail', book_id=book_id)   
+
+
+#editprofile
+class EditProfileView(LoginRequiredMixin, UpdateView):
+    model = User
+    form_class = ChangeUserForm
+    template_name = './Books/update_profile.html'
+    success_url = reverse_lazy('profile')
+
+    def get_object(self):
+        return self.request.user
+
+    def form_valid(self, form):
+        messages.success(self.request, 'Profile Update Successfully!!!')
+        return super().form_valid(form)    
+
+
+#password change
+class PassChangeView(LoginRequiredMixin, FormView):
+    form_class = PasswordChangeForm
+    template_name = './Books/pass_change.html'
+    success_url = reverse_lazy('profile')
+
+    def get_form_kwargs(self):
+        kwargs = super().get_form_kwargs()
+        kwargs['user'] = self.request.user
+        return kwargs
+
+    def form_valid(self, form):
+        form.save()
+        update_session_auth_hash(self.request, form.user)
+        messages.success(self.request, 'Password Updated Successfully!!!')
+        return super().form_valid(form)
+    
