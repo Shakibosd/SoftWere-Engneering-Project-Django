@@ -15,3 +15,10 @@ class CategoryAdmin(admin.ModelAdmin):
     list_display=['name','slug']
 
 admin.site.register(Category,CategoryAdmin)         
+
+
+
+# class BorrowAdmin(admin.ModelAdmin):
+#     def save():
+
+# admin.site.register(Category,CategoryAdmin)         

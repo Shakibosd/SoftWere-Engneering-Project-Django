@@ -9,6 +9,7 @@ class Category(models.Model):
     slug=models.SlugField(max_length=200,null=True,blank=True,unique=True)
     def __str__(self):
         return self.name
+    
 class BookModel(models.Model):  
     title=models.CharField(max_length=100)
     description=models.CharField(max_length=1000000)
@@ -17,6 +18,8 @@ class BookModel(models.Model):
     category=models.ManyToManyField(Category,null=True,blank=True)
     def __str__(self):
         return self.title
+ 
+            
 
 class Review(models.Model):
     book = models.ForeignKey('BookModel', related_name='review', on_delete=models.CASCADE)
@@ -36,15 +39,15 @@ class Review(models.Model):
 
 class Borrow(models.Model):
     book=models.ForeignKey(BookModel,on_delete=models.CASCADE,related_name='Borrow')
-    user=models.ForeignKey(User,on_delete=models.CASCADE,related_name='Borrow')
-    borrow_date=models.DateTimeField(auto_now_add=datetime.now())
-    return_date = models.DateField(blank=True, null=True)
+    user=models.ForeignKey(User,on_delete=models.CASCADE)
+    borrow_date=models.DateTimeField(auto_now_add=True)
+    return_date=models.DateField(blank=True, null=True)
 
     def __str__(self) -> str:
         return str(self.borrow_date)
     
     class Meta:
-     ordering = ['borrow_date']
+        ordering = ['borrow_date']
 
 
 class CustomUser(AbstractUser):

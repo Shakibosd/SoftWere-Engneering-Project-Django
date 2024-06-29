@@ -56,9 +56,6 @@
           Category -> <a class="btn btn-secondary btn-sm" disabled>{{ca}}</a>
           {% endfor %}
         </div>
-        <br>
-        <p>Return Date: {{ Borrow.return_date }}</p>
-        <!-- <p>Return Date: {{ borrow_record.return_date }}</p> -->
         <div class='d-flex flex-wrap'>
           <a href="{% url 'book_details' book.id%}" class="btn btn-primary m-1 btn-md">Details>></a>
         </div>

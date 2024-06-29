@@ -15,3 +15,4 @@ class home(TemplateView):
         context['books']=books
         context['categorys']=categorys
         return context
+    

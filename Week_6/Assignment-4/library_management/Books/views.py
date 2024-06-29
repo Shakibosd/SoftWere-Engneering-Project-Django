@@ -70,28 +70,25 @@ def BorrowBookView(request, id):
         messages.error(request, 'This book is already borrowed.')
 
     return redirect('home')
-
+ 
 
 @login_required
-def ReturnBook(request, id):
-    book = get_object_or_404(BookModel, pk=id)
+def ReturnBook(request,id):
+    book=get_object_or_404(BookModel,pk=id)
+    borrow_instance=get_object_or_404(Borrow,book=book)
+    if borrow_instance.user==request.user:
+        usr=request.user
+        usr.account.balance+=book.price
+        usr.account.save(
+            update_fields=['balance']
+        )
+        borrow_instance.return_date=datetime.now()
+        borrow_instance.save(
+            update_fields=['return_date']
+        )
+        borrow_instance.delete()
     
-    borrow_instances = Borrow.objects.filter(book=book, user=request.user, return_date=None)
-
-    if borrow_instances.exists():
-        user_account = request.user.account
-        total_balance_to_add = 0
-
-        for borrow_instance in borrow_instances:
-            total_balance_to_add += borrow_instance.book.price
-
-        user_account.balance += total_balance_to_add
-        user_account.save(update_fields=['balance'])
-
-        borrow_instances.update(return_date=datetime.now())
-        borrow_instances.delete()  
-
-    return redirect('home')  
+    return redirect('profile')
 
 
 class BorrowedBookView(LoginRequiredMixin,ListView):
@@ -109,8 +106,8 @@ class ProfileView(LoginRequiredMixin, TemplateView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         
-        borrowed_books = Borrow.objects.filter(user=self.request.user, return_date=None)
-    
+        borrowed_books = Borrow.objects.filter(user=self.request.user)
+        # print(borrowed_books.first())
         context['borrowed_books'] = borrowed_books
         return context
     
