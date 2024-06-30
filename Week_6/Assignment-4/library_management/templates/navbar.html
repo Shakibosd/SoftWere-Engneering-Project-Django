@@ -6,11 +6,10 @@
         aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
-      {% if user.is_authenticated %}
-      <h6 class='text-primary'><span class="text-light">Welcome : </span>{{user.first_name}} {{user.last_name}} <br>
-        {% if user.account%}
-        <span class="text-light">Balance : </span>{{user.account.balance}}
-        {% endif %}
+      {% if request.user.is_authenticated %}
+      <h6 class='text-primary'><span class="text-light">Welcome : </span>{{user.first_name}} {{user.last_name}} 
+        <br>
+        <span class="text-light">Balance : {{request.user.account.balance}}</span> 
       </h6>
       {% endif %}
     </div>

@@ -3,8 +3,8 @@ from django.http import HttpRequest
 from django.http.response import HttpResponse as HttpResponse
 from django.shortcuts import redirect, render
 from django.contrib.auth.models import User
-# Create your views here.
 from  django.views.generic import CreateView
+from Books.views import send_mail
 from .forms import RegistreationForm
 from django.urls import reverse_lazy
 from django.contrib import messages
@@ -12,21 +12,6 @@ from django.contrib.auth.views import LoginView,LogoutView
 from django.contrib.auth.mixins import LoginRequiredMixin
 from .forms import DepositeForm
 from .models import Deposite, UserBankAccount
-from django.core.mail import EmailMessage,EmailMultiAlternatives
-from django.template.loader import render_to_string
-
-
-def send_mail(user,subject,type,book):
-        mail_subject=subject
-        message=render_to_string('mail.html',{
-            'user':user,
-            'type':type,
-            'book':book
-        })
-        user_mail=user.email
-        mail=EmailMultiAlternatives(mail_subject,'',to=[user_mail])
-        mail.attach_alternative(message,'text/html')
-        mail.send()
 
 class RegistrationView(CreateView):
     model=User
@@ -85,6 +70,9 @@ class DeposteView(LoginRequiredMixin,CreateView):
             ]
         )
         messages.success(self.request,f'you {amount}$ Deposite Successflly!!!')
+
+        send_mail(self.request.user,'Deposite Message', amount)
+
         return super().form_valid(form)
     
     def get_context_data(self,**kwargs):

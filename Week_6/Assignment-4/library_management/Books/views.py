@@ -9,7 +9,6 @@ from .models import BookModel,Borrow
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
-from users.views import send_mail
 from datetime import datetime
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages 
@@ -22,19 +21,31 @@ from django.contrib.auth.models import User
 from django.views.generic.edit import UpdateView
 from django.views.generic.edit import FormView
 from .forms import ChangeUserForm
+from django.core.mail import EmailMessage,EmailMultiAlternatives
+from django.template.loader import render_to_string
+
+def send_mail(user, subject, amount):
+        mail_subject=subject
+        message=render_to_string('deposite_email.html',{
+            'user':user,
+            'amount':amount,
+        })
+        user_mail=user.email
+        mail=EmailMultiAlternatives(mail_subject,'',to=[user_mail])
+        mail.attach_alternative(message,'text/html')
+        mail.send()
 
 def ReviewViewFunc(request,id):
-    book =get_object_or_404(BookModel,pk=id)
+    book = get_object_or_404(BookModel,pk=id)
     if request.method=='POST':
         form=ReviewForm(request,request.POST)
         if form.is_valid():
             f=form.save(commit=False)
-            # print('hello')
             user=request.user
             f.book=book
             f.user=user 
             f.save()
-            messages.success(request,f'your review succesfully submitted')
+            messages.success(request,f'Your Review Succesfully Submitted')
             return redirect('home')
     else:
         form=ReviewForm()
