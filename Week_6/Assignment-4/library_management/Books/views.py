@@ -24,16 +24,16 @@ from .forms import ChangeUserForm
 from django.core.mail import EmailMessage,EmailMultiAlternatives
 from django.template.loader import render_to_string
 
-def send_mail(user, subject, amount):
-        mail_subject=subject
-        message=render_to_string('deposite_email.html',{
-            'user':user,
-            'amount':amount,
-        })
-        user_mail=user.email
-        mail=EmailMultiAlternatives(mail_subject,'',to=[user_mail])
-        mail.attach_alternative(message,'text/html')
-        mail.send()
+def send_transaction_email(user, amount, subject, template):
+        message = render_to_string(template, {
+            'user' : user,
+            'amount' : amount,
+        }) 
+
+        send_email = EmailMultiAlternatives(subject, '', to=[user.email])
+        send_email.attach_alternative(message, 'text/html')
+        send_email.send()
+
 
 def ReviewViewFunc(request,id):
     book = get_object_or_404(BookModel,pk=id)
@@ -71,7 +71,7 @@ def BorrowBookView(request, id):
 
     try:
         borrow = Borrow.objects.get(pk=id)
-    except Borrow.DoesNotExist:
+    except Borrow.DoesNotExist: 
         borrow = None
 
     if borrow is None:
@@ -86,7 +86,8 @@ def BorrowBookView(request, id):
     else:
         messages.error(request, 'This book is already borrowed.')
 
-    return redirect('home')
+    # send_transaction_email(self.request.user, 'Successfully', 'Borrow Message', './Books/borrow_male.html')
+    return redirect('profile')
  
 
 @login_required
@@ -103,15 +104,16 @@ def ReturnBook(request,id):
         borrow_instance.save(
             update_fields=['return_date']
         )
-        borrow_instance.delete()
-    
+        # borrow_instance.delete()
+        messages.success(request, 'Book Returned successfully!!!')
+
     return redirect('profile')
 
 
 class BorrowedBookView(LoginRequiredMixin,ListView):
     template_name='./Books/profile.html'
     model=Borrow
-    context_object_name='borrowed_books'
+    context_object_name='profile'
     def get_queryset(self):
          queryset=super().get_queryset().filter(user=self.request.user)
          return queryset

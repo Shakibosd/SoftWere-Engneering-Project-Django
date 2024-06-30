@@ -4,7 +4,7 @@ from django.http.response import HttpResponse as HttpResponse
 from django.shortcuts import redirect, render
 from django.contrib.auth.models import User
 from  django.views.generic import CreateView
-from Books.views import send_mail
+from Books.views import send_transaction_email
 from .forms import RegistreationForm
 from django.urls import reverse_lazy
 from django.contrib import messages
@@ -71,7 +71,7 @@ class DeposteView(LoginRequiredMixin,CreateView):
         )
         messages.success(self.request,f'you {amount}$ Deposite Successflly!!!')
 
-        send_mail(self.request.user,'Deposite Message', amount)
+        send_transaction_email(self.request.user, amount, 'Deposit Message', 'deposite_email.html')
 
         return super().form_valid(form)
     
