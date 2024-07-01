@@ -2,6 +2,7 @@ from django.db.models.query import QuerySet
 from django.shortcuts import render, get_object_or_404
 from django.shortcuts import redirect
 from django.urls import reverse_lazy
+from django.views import View
 from django.views.generic import CreateView,DetailView,ListView
 from users.models import UserBankAccount
 from .forms import ReviewForm
@@ -51,19 +52,20 @@ def ReviewViewFunc(request,id):
         form=ReviewForm()
     return render(request,'./Books/review.html',{'form':form})
 
-class BookDetailsView(DetailView):
-    template_name='./Books/book_details.html'
-    model=BookModel
-    pk_url_kwarg='id'
-    success_url=reverse_lazy('home')
-    def get_context_data(self,*args,**kwargs):
-        context=super().get_context_data(*args,**kwargs)
-        id=self.kwargs.get('id')
-        book=BookModel.objects.get(pk=id)
-        context['book']=book
-        return context  
 
+class BookDetailsView(DetailView):
+    def get(self, request, id):
+        book = get_object_or_404(BookModel, id=id)
+        # Check if the book is already borrowed by the user
+        borrow_instance = Borrow.objects.filter(book=book, user=request.user, return_date__isnull=True).first()
+        context = {
+            'book': book,
+            'is_borrowed': borrow_instance is not None,
+        }
+        return render(request, './Books/book_details.html', context)
     
+
+
 @login_required
 def BorrowBookView(request, id):
     book = get_object_or_404(BookModel, pk=id)
@@ -79,7 +81,7 @@ def BorrowBookView(request, id):
             requested_user.balance -= book.price
             requested_user.save()
             Borrow.objects.create(user=request.user, book=book)
-            messages.success(request, 'You successfully borrowed this book.')
+            messages.success(request, 'This Book Successfully Borrowed.')
             send_transaction_email(request.user,requested_user.balance,'Borrow Message','./Books/borrow_email.html')
             return redirect('profile')
         else:
@@ -106,15 +108,6 @@ def ReturnBook(request, id):
 
     return redirect('home')  
 
-
-
-class BorrowedBookView(LoginRequiredMixin,ListView):
-    template_name='./Books/profile.html'
-    model=Borrow
-    context_object_name='profile'
-    def get_queryset(self):
-         queryset=super().get_queryset().filter(user=self.request.user)
-         return queryset
     
 
 class ProfileView(LoginRequiredMixin, TemplateView):
@@ -143,7 +136,7 @@ def submit_review(request, book_id):
         )
         
         messages.success(request, 'Review submitted successfully!!!')
-        return redirect('profile') 
+        return redirect('home') 
 
     return redirect('book_detail', book_id=book_id)   
 
@@ -153,7 +146,7 @@ class EditProfileView(LoginRequiredMixin, UpdateView):
     model = User
     form_class = ChangeUserForm
     template_name = './Books/update_profile.html'
-    success_url = reverse_lazy('profile')
+    success_url = reverse_lazy('home')
 
     def get_object(self):
         return self.request.user
@@ -167,7 +160,7 @@ class EditProfileView(LoginRequiredMixin, UpdateView):
 class PassChangeView(LoginRequiredMixin, FormView):
     form_class = PasswordChangeForm
     template_name = './Books/pass_change.html'
-    success_url = reverse_lazy('profile')
+    success_url = reverse_lazy('home')
 
     def get_form_kwargs(self):
         kwargs = super().get_form_kwargs()
@@ -180,3 +173,16 @@ class PassChangeView(LoginRequiredMixin, FormView):
         messages.success(self.request, 'Password Updated Successfully!!!')
         return super().form_valid(form)
     
+
+
+class DeleteBorrowedBookView(View):
+    def get(self, request, book_id):
+        book = get_object_or_404(Borrow, id=book_id, user=request.user)
+        
+        if book.return_date:
+            book.delete()
+            messages.success(request, 'Returned Book Record Deleted')
+        else:
+            messages.error(request, 'Cannot delete a book that has not been returned')
+                
+        return redirect('profile')

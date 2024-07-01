@@ -26,6 +26,7 @@
    <p class='text-danger'>{{fm.errors | striptags}}</p>
    {% endfor%}
    <br>
-   <button class='btn btn-secondary px-4 py-2'>Submit</button>
+   <button class='btn btn-secondary px-4 py-2'>Submit</button>&nbsp;<small class="text-white">You Have Already An Account Please</small>
+   <a class="btn btn-secondary" href="{% url 'login' %}">Login</a>
 </form>
 {% endblock content%}

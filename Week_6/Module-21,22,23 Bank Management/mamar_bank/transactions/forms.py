@@ -1,5 +1,7 @@
 from django import forms
 from .models import Transaction
+from accounts.models import User
+
 class TransactionForm(forms.ModelForm):
     class Meta:
         model = Transaction
@@ -65,3 +67,4 @@ class LoanRequestForm(TransactionForm):
         amount = self.cleaned_data.get('amount')
 
         return amount
+    

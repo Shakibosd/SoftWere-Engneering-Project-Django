@@ -10,4 +10,5 @@ urlpatterns = [
     path('book/<int:book_id>/review/', views.submit_review, name='submit_review'),
     path('edit_profile/', views.EditProfileView.as_view(), name='edit_profile'),
     path('pass_change/', views.PassChangeView.as_view(), name='pass_change'),
+    path('delete_borrowed_book/<int:book_id>/', views.DeleteBorrowedBookView.as_view(), name='delete_borrowed_book'),
 ]

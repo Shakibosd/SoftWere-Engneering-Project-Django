@@ -69,7 +69,7 @@ class DeposteView(LoginRequiredMixin,CreateView):
                 'balance'
             ]
         )
-        messages.success(self.request,f'you {amount}$ Deposite Successflly!!!')
+        messages.success(self.request,f'Your Deposite Amount {amount}$ Successflly!!!')
 
         send_transaction_email(self.request.user, amount, 'Deposit Message', 'deposite_email.html')
 

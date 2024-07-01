@@ -32,9 +32,6 @@
       </div>
       <br>
       <p>Borrow Date: {{ book.borrow_date }}</p>
-      {% if book.return_date is not None %}
-      <p>Return Date: {{ book.return_date }}</p>
-      {% endif %}
       <h6 class="mt-3"></h6>
       {% for review in book.book.review.all %}
       {% if review.user == user %}
@@ -44,11 +41,16 @@
       </div>
       {% endif %}
       {% endfor %}
-      <div class='d-flex flex-wrap'>
-        {% if user.is_authenticated %}
-        <a href="{% url 'return_book' book.book.id %}" class="btn btn-primary m-1 btn-md">return</a>
-        {% endif %}
-      </div>
+      {% if user.is_authenticated %}
+      {% if book.return_date %}
+      <p>Return Date: {{ book.return_date }}</p>
+      <details class="btn btn-secondary btn-sm">After Returning The Book, Delete It.</details>
+      <br>
+      <a class="btn btn-light m-1" disabled>Returned</a> &nbsp; <a class="btn btn-danger" href="{% url 'delete_borrowed_book' book.id %}">Delete</a>
+      {% else %}
+      <a href="{% url 'return_book' book.book.id %}" class="btn btn-success m-1 btn-md">Return</a>
+      {% endif %}
+      {% endif %}
     </div>
   </div>
   {% endfor %}

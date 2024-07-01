@@ -42,12 +42,16 @@
             <option value="5">5 - Excellent</option>
           </select>
         </div>
-        <button type="submit" class="btn btn-success mt-2">Submit Review</button>
+        <button type="submit" class="btn btn-info mt-2">Submit Review</button>
       </form>
       {% endif %}
       <div class='d-flex flex-wrap'>
         {% if user.is_authenticated %}
-        <a href="{% url 'borrow_book' book.id %}" class="btn btn-primary m-1 btn-md">borrow</a>
+        {% if is_borrowed %}
+        <a href="#" class="btn btn-danger m-1" disabled>Already Borrowed</a>
+        {% else %}
+        <a href="{% url 'borrow_book' book.id %}" class="btn btn-success m-1">Borrow</a>
+        {% endif %}
         {% endif %}
         <!-- Display Existing Reviews -->
         {% for review in book.book.review.all %}
