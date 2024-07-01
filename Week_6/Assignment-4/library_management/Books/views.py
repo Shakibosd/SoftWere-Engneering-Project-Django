@@ -61,7 +61,7 @@ class BookDetailsView(DetailView):
         id=self.kwargs.get('id')
         book=BookModel.objects.get(pk=id)
         context['book']=book
-        return context
+        return context  
 
     
 @login_required
@@ -80,34 +80,32 @@ def BorrowBookView(request, id):
             requested_user.save()
             Borrow.objects.create(user=request.user, book=book)
             messages.success(request, 'You successfully borrowed this book.')
-            return redirect('home')
+            send_transaction_email(request.user,requested_user.balance,'Borrow Message','./Books/borrow_email.html')
+            return redirect('profile')
         else:
             messages.error(request, 'You cannot borrow this book because your balance is less than the book price.')
     else:
         messages.error(request, 'This book is already borrowed.')
-
-    # send_transaction_email(self.request.user, 'Successfully', 'Borrow Message', './Books/borrow_male.html')
-    return redirect('profile')
- 
+   
 
 @login_required
-def ReturnBook(request,id):
-    book=get_object_or_404(BookModel,pk=id)
-    borrow_instance=get_object_or_404(Borrow,book=book)
-    if borrow_instance.user==request.user:
-        usr=request.user
-        usr.account.balance+=book.price
-        usr.account.save(
-            update_fields=['balance']
-        )
-        borrow_instance.return_date=datetime.now()
-        borrow_instance.save(
-            update_fields=['return_date']
-        )
-        # borrow_instance.delete()
-        messages.success(request, 'Book Returned successfully!!!')
+def ReturnBook(request, id):
+    book = get_object_or_404(BookModel, pk=id)
+    borrow_instance = get_object_or_404(Borrow, book=book)
 
-    return redirect('profile')
+    if borrow_instance.user == request.user:
+        usr = request.user  
+        usr.account.balance += book.price
+        usr.account.save(update_fields=['balance'])
+
+        borrow_instance.return_date = datetime.now()
+        borrow_instance.save(update_fields=['return_date'])
+
+        messages.success(request, 'Book Returned successfully!!!')
+        send_transaction_email(request.user, book.price, 'Book Return Message', 'Books/return_book_email.html')
+
+    return redirect('home')  
+
 
 
 class BorrowedBookView(LoginRequiredMixin,ListView):

@@ -12,15 +12,15 @@ class Category(models.Model):
     
 class BookModel(models.Model):  
     title=models.CharField(max_length=100)
-    description=models.CharField(max_length=1000000)
+    description=models.CharField(max_length=10000)
     image=models.ImageField(upload_to='image/uploads')
     price=models.DecimalField(max_digits=12,decimal_places=2)
     category=models.ManyToManyField(Category,null=True,blank=True)
+
     def __str__(self):
         return self.title
  
             
-
 class Review(models.Model):
     book = models.ForeignKey('BookModel', related_name='review', on_delete=models.CASCADE)
     user = models.ForeignKey(User, related_name='user', on_delete=models.CASCADE)

@@ -3,10 +3,11 @@
 
 {% block content %}
 <br>
-<br>
 <div class="container">
-  <a class="btn btn-primary btn-lg" href="{% url 'edit_profile' %}">Edit Your Profile</a>
+  <a class="btn btn-secondary btn-lg d-flex p-5 container" style="border-radius: 20px; height: 120px; width: 250px;"
+    href="{% url 'edit_profile' %}">Edit Your Profile</a>
 </div>
+<br>
 {% for book in borrowed_books %}
 <div style="width: 40rem; margin:auto; margin-top:10px;">
   {% if messages %}
@@ -31,7 +32,6 @@
       </div>
       <br>
       <p>Borrow Date: {{ book.borrow_date }}</p>
-      <br>
       {% if book.return_date is not None %}
       <p>Return Date: {{ book.return_date }}</p>
       {% endif %}
