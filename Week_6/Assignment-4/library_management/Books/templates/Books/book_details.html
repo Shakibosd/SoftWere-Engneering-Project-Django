@@ -17,7 +17,7 @@
       <h5 class="card-title">Title : {{book.title}}</h5>
       <br>
       <p class="card-text">Description : {{book.description}}</p>
-      <p>Price : {{book.price}}</p>
+      <p>Price : ${{book.price}}</p>
       <div class='d-flex flex-wrap'>
         {% for ca in book.category.all %}
         Category -> <a class="btn btn-secondary btn-sm" type='button' disabled>{{ca}}</a>
@@ -35,6 +35,7 @@
         <div class="form-group">
           <label for="rating">Rating:</label>
           <select id="rating" name="rating" class="form-control" required>
+            <option value="">Choice Ratings</option>
             <option value="1">1 - Poor</option>
             <option value="2">2 - Fair</option>
             <option value="3">3 - Good</option>

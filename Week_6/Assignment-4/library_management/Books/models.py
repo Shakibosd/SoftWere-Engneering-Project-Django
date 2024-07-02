@@ -12,10 +12,10 @@ class Category(models.Model):
     
 class BookModel(models.Model):  
     title=models.CharField(max_length=100)
-    description=models.CharField(max_length=10000)
+    description=models.CharField(max_length=100000)
     image=models.ImageField(upload_to='image/uploads')
     price=models.DecimalField(max_digits=12,decimal_places=2)
-    category=models.ManyToManyField(Category,null=True,blank=True)
+    category=models.ManyToManyField(Category)
 
     def __str__(self):
         return self.title

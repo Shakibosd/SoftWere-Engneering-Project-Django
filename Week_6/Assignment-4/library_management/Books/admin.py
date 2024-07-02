@@ -1,4 +1,3 @@
-from audioop import avg
 from django.contrib import admin
 # Register your models here.
 from .models import BookModel,Review,Category,Borrow,CustomUser,Profile
@@ -16,9 +15,4 @@ class CategoryAdmin(admin.ModelAdmin):
 
 admin.site.register(Category,CategoryAdmin)         
 
-
-
-# class BorrowAdmin(admin.ModelAdmin):
-#     def save():
-
-# admin.site.register(Category,CategoryAdmin)         
+      

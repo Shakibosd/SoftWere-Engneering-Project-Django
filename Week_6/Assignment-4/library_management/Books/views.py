@@ -56,6 +56,7 @@ def ReviewViewFunc(request,id):
 class BookDetailsView(DetailView):
     def get(self, request, id):
         book = get_object_or_404(BookModel, id=id)
+        print(book.id)
         # Check if the book is already borrowed by the user
         borrow_instance = Borrow.objects.filter(book=book, user=request.user, return_date__isnull=True).first()
         context = {
