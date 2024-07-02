@@ -20,8 +20,11 @@
 {% endfor %}
 {% endif %}
 <div class="bg-white px-3 py-4 rounded-xl my-6">
-
-    <h4 class="font-bold text-3xl text-left pb-5">Account NO: {{request.user.account.account_no}}</h4>
+    <div class="flex justify-between">
+        <h4 class="font-bold text-3xl text-left pb-5">Account NO: {{request.user.account.account_no}}</h4>
+        <a style="background-color: #2a4365; color:white; border-radius: 10px; padding:10px 20px; text-align:center; margin-bottom:15px;"
+            href="{% url 'pass_change' %}"><b>Change Your Password</b></a>
+    </div>
     <h1 class="font-bold text-3xl text-center pb-5">Update Profile Information</h1>
     <div class="w-full mt-10">
         <form method="post" class="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
